@@ -7,7 +7,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Page 1</title>
       </Head>
-      <div>
+      <div className="text-3xl font-bold underline">
         This is page 1
       </div>
     </div>
