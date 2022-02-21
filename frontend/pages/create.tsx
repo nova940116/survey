@@ -31,34 +31,37 @@ const Create: NextPage = () => {
   return (
     <div className="flex justify-center">
       <form className="w-full sm:w-2/4 p-5 flex justify-center flex-col" onSubmit={handleSubmit}>
-        <h1>설문조사 작성 폼📄</h1>
+        <h1 className="my-6 text-2xl font-bold">설문조사 작성 폼📄</h1>
         {survey.map((qv: any, qi: number) => {
           return (
             <div key={qi}>
-              <label>Question {qi + 1}</label>
-              <input
-                className="w-full border-2"
+              <label className="block my-2">Question {qi + 1}</label>
+              <textarea
+                className="w-full border-2 p-1 h-16"
                 value={survey[qi].question}
                 onChange={(event) => handleChange(event, 'QUESTION', qi)}
+                placeholder="Please enter your question"
               />
               {qv.options.map((ov: string, oi: number) => {
                 return (
                   <div key={oi}>
-                    <label>Option {oi + 1}</label>
+                    <label className="block my-2">Option {oi + 1}</label>
                     <input
-                      className="w-full border-2"
+                      className="w-full border-2 p-1"
                       value={ov}
                       onChange={(event) => handleChange(event, 'OPTION', qi, oi)}
+                      placeholder="Please enter your option"
                     />
                   </div>
                 )
               })}
-              <button className="w-full border-2" onClick={()=> addItem(qi)}>항목 추가하기</button>
+              <button className="my-6 h-12 w-full border-2 bg-slate-400" onClick={() => addItem(qi)}>항목 추가하기</button>
+              <div className="border-b"></div>
             </div>
           )
         })}
-        <button type="button" className="border-2 my-4 h-10 bg-slate-400" onClick={addQuestion}>질문 추가하기</button>
-        <button type="submit" className="border-2 my-4 h-10 bg-slate-400">제출</button>
+        <button type="button" className="border-2 my-4 h-12 bg-slate-400" onClick={addQuestion}>질문 추가하기</button>
+        <button type="submit" className="border-2 my-4 h-12 bg-slate-400">제출하기</button>
       </form>
     </div>
   );
