@@ -30,7 +30,7 @@ const Create: NextPage = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
-    const response = fetch('https://')
+    // const response = fetch('https://')
     console.log(survey, '@')
   }
 

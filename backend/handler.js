@@ -3,7 +3,8 @@ const AWS = require("aws-sdk")
 const dynamo = new AWS.DynamoDB.DocumentClient()
 
 module.exports.survey = async (event) => {
-  let body, request, response, requestJSON
+  let body, request, response
+  let requestJSON = typeof event.body !== 'object' ? JSON.parse(event.body) : event.body
   let statusCode = 200    
   const headers = {
     'Access-Control-Allow-Origin': 'https://survey.novauniverse.me',
@@ -19,11 +20,12 @@ module.exports.survey = async (event) => {
         //--- dynamoDB
 
         request = {
-          TableName: "wiki",
+          TableName: "survey",
           Item: {
             name: requestJSON.name,
-            markdown: requestJSON.markdown,
-            updateTime: requestJSON.updateTime
+            title: requestJSON.title,
+            details: requestJSON.details,
+            question: requestJSON.question
           }  
         }
         await dynamo.put(request).promise()
