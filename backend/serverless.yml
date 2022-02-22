@@ -1,0 +1,91 @@
+# app, org = serverless dashboards 에서 app 생성과 관련
+# app: Wiki
+# org: nova
+frameworkVersion: "2"
+# useDotenv: true
+service: Survey
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-northeast-2
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://survey.novauniverse.me
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowCredentials: true
+      exposedResponseHeaders:
+        - Special-Response-Header
+      maxAge: 6000 # In seconds
+
+plugins:
+  - serverless-offline
+
+functions:
+  wiki:
+    role: 'arn:aws:iam::052827043885:role/wiki-lambda-dynamoDB-access-allow'
+    handler: handler.survey
+    events:
+      - httpApi:
+          method: GET
+          path: /{name}
+      - httpApi:
+          method: GET
+          path: /surveys
+      - httpApi:
+          method: GET
+          path: /result/{name}
+      - httpApi:
+          method: POST
+          path: /create
+      - httpApi:
+          method: PUT
+          path: /{name}
+      - httpApi:
+          method: DELETE
+          path: /{name}
+          
+# CloudFormation template syntax from here on.
+resources:
+  Resources:
+    surveyTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: survey
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+    resultTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: result
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE

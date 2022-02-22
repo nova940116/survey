@@ -1,8 +1,13 @@
 
 import { NextPage } from "next"
 import { useState } from "react"
+import { useInput } from "../hooks/useInput"
 
 const Create: NextPage = () => {
+  const name = useInput("")
+  const title = useInput("")
+  const details = useInput("")
+
   const [survey, setSurvey] = useState<any>([
     { question: '', options: ['', '']}
   ])
@@ -25,6 +30,7 @@ const Create: NextPage = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
+    const response = fetch('https://')
     console.log(survey, '@')
   }
 
@@ -32,6 +38,29 @@ const Create: NextPage = () => {
     <div className="flex justify-center">
       <form className="w-full sm:w-2/4 p-5 flex justify-center flex-col" onSubmit={handleSubmit}>
         <h1 className="my-6 text-2xl font-bold">설문조사 작성 폼📄</h1>
+        <div>
+          <label className="block my-2">Survey Name</label>
+          <input
+            className="w-full border-2 p-1"
+            type="text"
+            placeholder="Please enter name(unique)"
+            {...name}
+          />
+          <label className="block my-2">Survey Title</label>
+          <input
+            className="w-full border-2 p-1"
+            type="text"
+            placeholder="Please enter title"
+            {...title}
+          />
+          <label className="block my-2">Survey Details</label>          
+          <textarea
+            className="w-full border-2 p-1 h-16"
+            placeholder="Please enter details"
+            {...details}
+          />
+        </div>
+
         {survey.map((qv: any, qi: number) => {
           return (
             <div key={qi}>
