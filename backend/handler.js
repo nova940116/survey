@@ -29,7 +29,7 @@ module.exports.survey = async (event) => {
           }  
         }
         await dynamo.put(request).promise()
-
+        body = 'SUCCESS'
         break
       case "DELETE /doc":
         requestJSON = typeof event.body !== 'object' ? JSON.parse(event.body) : event.body
