@@ -1,7 +1,7 @@
 # app, org = serverless dashboards 에서 app 생성과 관련
 # app: Wiki
 # org: nova
-frameworkVersion: "2"
+frameworkVersion: "3"
 # useDotenv: true
 service: Survey
 
@@ -34,7 +34,7 @@ plugins:
 
 functions:
   wiki:
-    role: 'arn:aws:iam::052827043885:role/wiki-lambda-dynamoDB-access-allow'
+    role: "arn:aws:iam::052827043885:role/wiki-lambda-dynamoDB-access-allow"
     handler: handler.survey
     events:
       - httpApi:
@@ -55,7 +55,7 @@ functions:
       - httpApi:
           method: DELETE
           path: /{name}
-          
+
 # CloudFormation template syntax from here on.
 resources:
   Resources:

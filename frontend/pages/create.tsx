@@ -2,6 +2,7 @@
 import { NextPage } from "next"
 import { useState } from "react"
 import { useInput } from "../hooks/useInput"
+import SERVER_URL from "../survey.config"
 
 const Create: NextPage = () => {
   const name = useInput("")
@@ -28,10 +29,10 @@ const Create: NextPage = () => {
     setSurvey(newArr)
   }
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault()
-    // const response = fetch('https://')
-    console.log(survey, '@')
+    const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(survey)}).then(r=> r.json())
+    console.log(response, '@')
   }
 
   return (

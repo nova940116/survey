@@ -15,7 +15,7 @@ module.exports.survey = async (event) => {
   }
   try {
     switch (event.routeKey) {   
-      case "POST /{name}":
+      case "POST /create":
       
         //--- dynamoDB
 
@@ -31,7 +31,7 @@ module.exports.survey = async (event) => {
         await dynamo.put(request).promise()
         body = 'SUCCESS'
         break
-      case "DELETE /doc":
+      case "DELETE /{name}":
         requestJSON = typeof event.body !== 'object' ? JSON.parse(event.body) : event.body
 
         //--- S3
