@@ -31,8 +31,15 @@ const Create: NextPage = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
-    const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(survey)}).then(r=> r.json())
-    console.log(response, '@')
+    const request = {
+      name: name.value,
+      title: title.value,
+      details: details.value,
+      question: survey
+    }
+    const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
+    response === 'YES' ? alert('설문 조사가 등록되었습니다') : alert('설문조사 등록에 실패했습니다')
+    console.log(response, '@response')
   }
 
   return (

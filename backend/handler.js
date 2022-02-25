@@ -18,7 +18,7 @@ module.exports.survey = async (event) => {
       case "POST /create":
       
         //--- dynamoDB
-
+        
         request = {
           TableName: "survey",
           Item: {
@@ -29,23 +29,14 @@ module.exports.survey = async (event) => {
           }  
         }
         await dynamo.put(request).promise()
-        body = 'SUCCESS'
+        body = 'YES'
         break
       case "DELETE /{name}":
-        requestJSON = typeof event.body !== 'object' ? JSON.parse(event.body) : event.body
-
-        //--- S3
-        request = {
-          Bucket: `${BUCKET_NAME}/markdowns`,
-          Key: `${requestJSON.name}.md`
-        }        
-        await s3.deleteObject(request).promise()
-        body = 'SUCCESS'
         break
     }
   } catch (err) {
     statusCode = 400
-    body = err.message
+    body = [err.message, requestJSON]
   } finally {
     body = JSON.stringify(body)
   }  
