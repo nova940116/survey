@@ -67,7 +67,7 @@ const Create: NextPage = () => {
             type="text"
             placeholder="Please enter name(unique)"
             value={name}
-            onChange={(event) => setName(event.target.name)}
+            onChange={(event) => setName(event.target.value)}
           />
           <label className="block my-2">Survey Title</label>
           <input
@@ -75,14 +75,14 @@ const Create: NextPage = () => {
             type="text"
             placeholder="Please enter title"
             value={title}
-            onChange={(event) => setName(event.target.name)}
+            onChange={(event) => setTitle(event.target.value)}
           />
           <label className="block my-2">Survey Details</label>          
           <textarea
             className="w-full border-2 p-1 h-16"
             placeholder="Please enter details"
             value={details}
-            onChange={(event) => setName(event.target.name)}
+            onChange={(event) => setDetails(event.target.value)}
           />
         </div>
 
