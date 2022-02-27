@@ -13,7 +13,15 @@ module.exports.survey = async (event) => {
     'Content-Type': 'application/json'
   }
   try {
-    switch (event.routeKey) { 
+    switch (event.routeKey) {
+      case "GET /surveys":
+        request = {       
+          TableName: "survey",
+          ProjectionExpression: "#name",
+          ExpressionAttributeNames: { "#name": "name" },
+        }        
+        body = await dynamo.scan(request).promise()
+        break
       case "GET /{name}":
         request = {
           TableName: "survey",
