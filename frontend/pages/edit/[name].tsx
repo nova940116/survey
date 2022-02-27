@@ -1,17 +1,31 @@
 
 import { NextPage } from "next"
-import { useState } from "react"
-import { useInput } from "../hooks/useInput"
-import SERVER_URL from "../survey.config"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import SERVER_URL from "../../survey.config"
 
 const Create: NextPage = () => {
-  const name = useInput("")
-  const title = useInput("")
-  const details = useInput("")
+  const [name, setName] = useState('')
+  const [title, setTitle] = useState('')
+  const [details, setDetails] = useState('')
+  const router = useRouter()
 
   const [survey, setSurvey] = useState<any>([
     { question: '', options: ['', '']}
   ])
+
+  useEffect(() => {
+    (async () => {
+      if(router.query.name) { 
+        const res = await fetch(`${SERVER_URL}/${router.query.name}`).then(r => r.json())
+        setName(res.Item.name)
+        setTitle(res.Item.title)
+        setDetails(res.Item.details)
+        setSurvey(res.Item.questions)
+      }
+    })()
+  }, [router])
+
 
   const handleChange = (event: any, type: string, qi: number, oi?: any) => {
     const newArr = [...survey]
@@ -32,9 +46,9 @@ const Create: NextPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault()
     const request = {
-      name: name.value,
-      title: title.value,
-      details: details.value,
+      name: name,
+      title: title,
+      details: details,
       questions: survey
     }
     const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
@@ -52,20 +66,23 @@ const Create: NextPage = () => {
             className="w-full border-2 p-1"
             type="text"
             placeholder="Please enter name(unique)"
-            {...name}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
           <label className="block my-2">Survey Title</label>
           <input
             className="w-full border-2 p-1"
             type="text"
             placeholder="Please enter title"
-            {...title}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
           />
           <label className="block my-2">Survey Details</label>          
           <textarea
             className="w-full border-2 p-1 h-16"
             placeholder="Please enter details"
-            {...details}
+            value={details}
+            onChange={(event) => setDetails(event.target.value)}
           />
         </div>
 

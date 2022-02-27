@@ -33,8 +33,6 @@ module.exports.survey = async (event) => {
         break 
       case "POST /create":
         requestJSON = JSON.parse(event.body)
-        //--- dynamoDB
-        
         request = {
           TableName: "survey",
           Item: {
