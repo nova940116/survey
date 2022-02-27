@@ -33,7 +33,7 @@ module.exports.survey = async (event) => {
             name: requestJSON.name,
             title: requestJSON.title,
             details: requestJSON.details,
-            question: requestJSON.question
+            questions: requestJSON.questions
           }  
         }
         await dynamo.put(request).promise()
