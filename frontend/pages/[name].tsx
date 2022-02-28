@@ -1,30 +1,42 @@
 import type { NextPage } from "next"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSession, signIn } from "next-auth/react"
+import Image from 'next/image'
 import SERVER_URL from "../survey.config"
 
 const Read: NextPage = ({ survey }: any) => {
   const { data: session } = useSession()
-  const [answer, setAnswer] = useState<any>([]) 
+  const [answer, setAnswer] = useState<string []>([]) 
 
   const handleChange = (event: any, qi: number) => {
     const newArr = [...answer]
     newArr[qi] = event.target.value
     setAnswer(newArr)
   }
-  const handleSubmit = async (event: any) => {
-    event.preventDefault()
-    console.log(answer, 'submit')
-    // const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
-    // response === 'YES' ? alert('설문 조사가 등록되었습니다') : alert('설문조사 등록에 실패했습니다')
+  const checkItems = () => {
+    if(answer.length !== survey.questions.length) {
+      alert('설문 항목을 모두 체크해주세요')
+      return
+    }
+    // 이미 제출한 사람인지 확인하는 코드 작성필요 
+    handleSubmit()
+  }
+  const handleSubmit = async () => {
+    const request = {
+      name: survey.name,
+      email: session?.user?.email,
+      answer: answer
+    }
+    const response = await fetch(`${SERVER_URL}/submit`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
+    response === 'YES' ? alert('설문 조사 제출이 완료되었습니다') : alert('설문조사 제출에 실패했습니다')
   }
 
   return (
     <div className="flex justify-center">
-      <form className="w-full sm:w-2/4 p-5 flex justify-center flex-col" onSubmit={handleSubmit}>
-        <section>
+      <form className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
+        <section className="mb-2 pb-6 border-b-2">
           <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
-          <blockquote>{survey.details}</blockquote>
+          <blockquote className="text-xl">{survey.details}</blockquote>
         </section>
         {session ? 
           <section>
@@ -35,19 +47,26 @@ const Read: NextPage = ({ survey }: any) => {
                   {qv.options.map((ov: any, oi: number) => {
                     return (
                       <div key={oi}>
-                        <input type="radio" value={ov} id={`radio-${oi}`} name={`radio-group-${qi}`} onChange={(event)=>handleChange(event, qi)}/>
-                        <label htmlFor={`radio-${oi}`}>{ov}</label>
+                        <input type="radio" value={ov} id={`radio-group-${qi}-radio-${oi}`} name={`radio-group-${qi}`} onChange={(event)=>handleChange(event, qi)}/>
+                        <label className="ml-2" htmlFor={`radio-group-${qi}-radio-${oi}`}>{ov}</label>
                       </div>
                     )
                   })}
                 </div>
               )
             })}
-            <button className="my-6 h-12 w-full border-2 bg-slate-400" type="submit">설문 제출하기</button>
+            <button className="bg-slate-900 text-white my-6 h-14 w-full border-2 font-bold" type="button" onClick={checkItems}>설문 제출하기</button>
           </section> 
           : 
           <div>            
-            <button className="my-6 h-12 w-full border-2 bg-slate-400" type="button" onClick={()=>signIn('google')}>구글 로그인 후 설문시작하기</button>
+            <button className="flex justify-center items-center my-6 h-12 w-full border-2 bg-white" type="button" onClick={()=>signIn('google')}>
+              <Image 
+                src="/btn_google_light_normal_ios.svg" 
+                width={45}
+                height={45} 
+              />
+              <p>구글 로그인 후 설문시작하기</p>
+            </button>
           </div>
         }
         </form>

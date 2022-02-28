@@ -49,6 +49,9 @@ functions:
           method: POST
           path: /create
       - httpApi:
+          method: POST
+          path: /submit
+      - httpApi:
           method: PUT
           path: /{name}
       - httpApi:
