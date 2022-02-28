@@ -34,7 +34,9 @@ const Read: NextPage = ({ survey }: any) => {
       answer: answer
     }
     const response = await fetch(`${SERVER_URL}/submit`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
-    response === 'YES' ? alert('설문 조사 제출이 완료되었습니다') : alert('설문조사 제출에 실패했습니다')
+    if(response === 'YES') {
+      alert('설문 조사 제출이 완료되었습니다')
+    } else alert('설문조사 제출에 실패했습니다')
   }
 
   return (
