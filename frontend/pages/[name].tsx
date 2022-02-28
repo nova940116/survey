@@ -13,12 +13,18 @@ const Read: NextPage = ({ survey }: any) => {
     newArr[qi] = event.target.value
     setAnswer(newArr)
   }
-  const checkItems = () => {
+  const checkItems = async () => {
     if(answer.length !== survey.questions.length) {
       alert('설문 항목을 모두 체크해주세요')
       return
     }
-    // 이미 제출한 사람인지 확인하는 코드 작성필요 
+    if(session?.user?.email) {
+      const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${survey.name}&email=${session.user.email}`).then(r => r.json())
+      if(res.Item) {
+        alert('이미 설문을 제출하셨습니다')
+        return
+      }
+    } 
     handleSubmit()
   }
   const handleSubmit = async () => {

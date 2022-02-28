@@ -44,6 +44,9 @@ functions:
           path: /surveys
       - httpApi:
           method: GET
+          path: /survey/isSubmit
+      - httpApi:
+          method: GET
           path: /result/{name}
       - httpApi:
           method: POST

@@ -31,6 +31,16 @@ module.exports.survey = async (event) => {
         }         
         body = await dynamo.get(request).promise()
         break 
+      case "GET /survey/isSubmit":
+        request = {
+          TableName: "result",
+          Key: {
+            name: event.queryStringParameters.name,
+            email: event.queryStringParameters.email,
+          }         
+        }         
+        body = await dynamo.get(request).promise()
+        break 
       case "POST /create":
         requestJSON = JSON.parse(event.body)
         request = {
@@ -63,7 +73,7 @@ module.exports.survey = async (event) => {
     }
   } catch (err) {
     statusCode = 400
-    body = [err.message]
+    body = [err.message, event]
   } finally {
     body = JSON.stringify(body)
   }  
