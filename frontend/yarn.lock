@@ -2021,6 +2021,7 @@ __metadata:
     next-auth: ^4.2.1
     postcss: ^8.4.6
     react: 17.0.2
+    react-apexcharts: ^1.3.9
     react-dom: 17.0.2
     react-hook-form: ^7.27.1
     tailwindcss: ^3.0.23
@@ -3707,7 +3708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2":
+"prop-types@npm:^15.5.7, prop-types@npm:^15.7.2":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -3767,6 +3768,18 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
+  languageName: node
+  linkType: hard
+
+"react-apexcharts@npm:^1.3.9":
+  version: 1.3.9
+  resolution: "react-apexcharts@npm:1.3.9"
+  dependencies:
+    prop-types: ^15.5.7
+  peerDependencies:
+    apexcharts: ^3.18.0
+    react: ">=0.13"
+  checksum: cfe8ae5ef7f48d1f09c43d939ce6448d76217c186cc20290a54a577cfba0bcc4a5cd4f55d26def0a8e275f88eb54bada28659e1a6c01e88a019ab48c4ccee5be
   languageName: node
   linkType: hard
 
