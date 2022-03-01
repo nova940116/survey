@@ -73,7 +73,7 @@ const Read: NextPage = ({ survey }: any) => {
                 width={45}
                 height={45} 
               />
-              <p>구글 로그인 후 설문시작하기</p>
+              <p className="mr-4">구글 로그인 후 설문시작하기</p>
             </button>
           </div>
         }
