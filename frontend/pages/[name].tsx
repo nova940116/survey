@@ -1,12 +1,14 @@
 import type { NextPage } from "next"
 import { useState } from "react"
 import { useSession, signIn } from "next-auth/react"
+import { useRouter } from "next/router"
 import Image from 'next/image'
 import SERVER_URL from "../survey.config"
 
 const Read: NextPage = ({ survey }: any) => {
   const { data: session } = useSession()
   const [answer, setAnswer] = useState<string []>([]) 
+  const router = useRouter()
 
   const handleChange = (event: any, qi: number) => {
     const newArr = [...answer]
@@ -36,6 +38,7 @@ const Read: NextPage = ({ survey }: any) => {
     const response = await fetch(`${SERVER_URL}/submit`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
     if(response === 'YES') {
       alert('설문 조사 제출이 완료되었습니다')
+      router.push(`result/${router.query.name}`)
     } else alert('설문조사 제출에 실패했습니다')
   }
 

@@ -1,24 +1,22 @@
 import type { NextPage } from "next"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
-import { useSession } from "next-auth/react"
+import { getSession } from "next-auth/react"
 import Image from 'next/image'
 import ApexCharts from 'apexcharts'
 import SERVER_URL from "../../survey.config"
 
 const Read: NextPage = ({ survey }: any) => {
-  const { data: session } = useSession()
   const router = useRouter()
 
   useEffect(() => {
     (async () => {
+      const session = await getSession()
       if(router.query.name) {
-        // const survey = await fetch(`${SERVER_URL}/${router.query.name}`).then(r => r.json())
         const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
         if(!res.Item) {
-          // alert('설문을 먼저 작성한 후에 결과를 확인해주세요')
-          console.log(res)
-          
+          alert('설문을 먼저 작성한 후에 결과를 확인해주세요')
+          router.push(`/${router.query.name}`)
         }        
       }
     })()
