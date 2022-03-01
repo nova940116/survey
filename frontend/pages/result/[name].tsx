@@ -70,24 +70,12 @@ const Result: NextPage = ({ survey }: any) => {
   )
 }
 
-export async function getStaticProps({ params }: any) {
+export async function getServerSideProps({ params }: any) {
   const res = await fetch(`${SERVER_URL}/${params.name}`).then(r => r.json())
   const survey = res.Item
 
   return {
-    props: {
-      survey
-    }
-  }
-}
-
-export async function getStaticPaths() {
-  const res = await fetch(`${SERVER_URL}/surveys`).then(r => r.json())
-  const survey: any = []
-  res.Items.map((v: any) => { survey.push({ params: { name: v.name } }) })
-  return {
-    paths: [...survey],
-    fallback: false
+    props: { survey }
   }
 }
 
