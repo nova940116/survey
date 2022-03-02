@@ -2,6 +2,7 @@ import type { NextPage } from "next"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
+import Head from "next/head"
 import SERVER_URL from "../../survey.config"
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
@@ -52,10 +53,9 @@ const Result: NextPage = ({ survey, result }: any) => {
             chart: {
               type: "bar",
               width: "100%",
-              toolbar: {
-                download: false
-              }
+        
             },
+            colors: ['#000'],
             xaxis: {
               categories: [...v.options]
             },
@@ -79,6 +79,10 @@ const Result: NextPage = ({ survey, result }: any) => {
 
   return (
     <div className="flex justify-center">
+      <Head>
+        <title>결과 | {survey.title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </Head>
       <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
         <blockquote className="text-xl">

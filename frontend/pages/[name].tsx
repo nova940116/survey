@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useSession, signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import Image from 'next/image'
+import Head from "next/head"
 import SERVER_URL from "../survey.config"
 
 const Read: NextPage = ({ survey }: any) => {
@@ -44,6 +45,13 @@ const Read: NextPage = ({ survey }: any) => {
 
   return (
     <div className="flex justify-center">
+      <Head>
+        <title>작성 | {survey.title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="og:title" property="og:title" content={survey.title}></meta>
+        <meta name="og:description" property="og:description" content={survey.details} />
+        <meta name="og:url" property="og:url" content={`https://survey.novauniverse.me/${router.query.name}`}></meta>
+      </Head>
       <form className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <section className="mb-2 pb-6 border-b-2">
           <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
