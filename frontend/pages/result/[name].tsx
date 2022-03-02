@@ -10,11 +10,13 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const Result: NextPage = ({ survey, result }: any) => {
   const router = useRouter()
   const [charts, setCharts] = useState<any>([])
-  const [answer, setAnswer] = useState<any>([])  
+  const [answer, setAnswer] = useState<any>([])
+  const [session, setSession] = useState<any>()  
 
   useEffect(() => {
     (async () => {
       const session = await getSession()
+      setSession(session)
       if(router.query.name) {
         const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
         if(!res.Item) {
@@ -98,7 +100,7 @@ const Result: NextPage = ({ survey, result }: any) => {
           현재까지 설문에 참여한 참여자 수는 <span className="text-2xl">{result.Count}</span>명 입니다
         </blockquote>
         {survey.questions.map((v: any, i: number) => {
-          if(charts.length) {
+          if(charts.length && session) {
             return (
               <div key={i}>
                 <h1 className="my-6 text-2xl font-bold">{i+1}. {v.question}</h1>
