@@ -3,6 +3,7 @@ import { NextPage } from "next"
 import { useState } from "react"
 import { useInput } from "../hooks/useInput"
 import { getSession } from "next-auth/react"
+import Head from "next/head"
 import SERVER_URL from "../survey.config"
 
 const Create: NextPage = () => {
@@ -54,6 +55,9 @@ const Create: NextPage = () => {
 
   return (
     <div className="flex justify-center">
+      <Head>
+        <title>작성 | 노바의 설문조사</title>
+      </Head>
       <form className="w-full sm:w-2/4 p-5 flex justify-center flex-col" onSubmit={handleSubmit}>
         <h1 className="my-6 text-2xl font-bold">설문조사 작성 폼📄</h1>
         <div>

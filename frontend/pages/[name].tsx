@@ -52,7 +52,7 @@ const Read: NextPage = ({ survey }: any) => {
         <meta name="og:description" property="og:description" content={survey.details} />
         <meta name="og:url" property="og:url" content={`https://survey.novauniverse.me/${router.query.name}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="노바의 설문조사 플랫폼" />
+        <meta property="og:site_name" content="노바의 설문조사" />
         <meta name="author" content="nova" />        
         <meta name="url" content={`https://survey.novauniverse.me/${router.query.name}`} />
         <meta name="description" content={survey.details} />
