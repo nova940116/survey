@@ -11,16 +11,16 @@ const Result: NextPage = ({ survey, result }: any) => {
   const router = useRouter()
   const [charts, setCharts] = useState<any>([])
   const [answer, setAnswer] = useState<any>([])
-  const [session, setSession] = useState<any>()  
+  const [isSurvey, setIsSurvey] = useState<boolean>(true)  
 
   useEffect(() => {
     (async () => {
       const session = await getSession()
-      setSession(session)
       if(router.query.name) {
         const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
         if(!res.Item) {
           alert('설문을 먼저 작성한 후에 결과를 확인해주세요')
+          setIsSurvey(false)
           router.push(`/${router.query.name}`)
         }        
       }
@@ -100,7 +100,7 @@ const Result: NextPage = ({ survey, result }: any) => {
           현재까지 설문에 참여한 참여자 수는 <span className="text-2xl">{result.Count}</span>명 입니다
         </blockquote>
         {survey.questions.map((v: any, i: number) => {
-          if(charts.length && session) {
+          if(charts.length && isSurvey) {
             return (
               <div key={i}>
                 <h1 className="my-6 text-2xl font-bold">{i+1}. {v.question}</h1>
