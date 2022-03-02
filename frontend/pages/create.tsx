@@ -35,6 +35,7 @@ const Create: NextPage = () => {
     const session = await getSession()
     if(session?.user?.email !== process.env.SECRET) {
       alert('작성 권한이 없습니다')
+      return
     }
     const request = {
       name: name.value,
