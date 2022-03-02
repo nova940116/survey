@@ -29,9 +29,9 @@ const Read: NextPage = ({ surveys }: any) => {
         </section>
         <section>
           <h3 className="text-xl">설문조사 리스트</h3>
-          {surveys.map((v: any) => {
+          {surveys.map((v: any, i: number) => {
             return (
-            <Link href={`/${v.name}`}>
+            <Link href={`/${v.name}`} key={i}>
               <h3 className="my-6 text-2xl font-bold underline cursor-pointer">{v.title}</h3>
             </Link>
             )
