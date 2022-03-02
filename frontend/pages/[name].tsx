@@ -81,7 +81,13 @@ const Read: NextPage = ({ survey }: any) => {
                 </div>
               )
             })}
-            <button className="bg-slate-900 text-white my-6 h-14 w-full font-bold" type="button" onClick={checkItems}>설문 제출하기</button>
+            <button 
+              className="bg-slate-900 text-white my-6 h-14 w-full font-bold hover:bg-slate-700" 
+              type="button" 
+              onClick={checkItems}
+            >
+              설문 제출하기
+            </button>
           </section> 
           : 
           <div>            

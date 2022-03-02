@@ -48,7 +48,7 @@ const Create: NextPage = () => {
       questions: survey
     }
     const response = await fetch(`${SERVER_URL}/create`, { method: 'POST', body: JSON.stringify(request)}).then(r=> r.json())
-    response === 'YES' ? alert('설문 조사가 등록되었습니다') : alert('설문조사 등록에 실패했습니다')
+    response === 'YES' ? alert('설문 조사가 수정되었습니다') : alert('설문조사 수정에 실패했습니다')
     console.log(response, '@response')
   }
 
