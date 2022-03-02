@@ -13,6 +13,9 @@ const nextConfig = {
       return []
     }
   },
+  env: {
+    SECRET: 'nova940116@gmail.com'
+  }
 }
 
 module.exports = nextConfig
