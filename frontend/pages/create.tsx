@@ -33,8 +33,13 @@ const Create: NextPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault()
     const session = await getSession()
+    if(!session) {
+      alert('작성 권한이 없습니다')
+      return 
+    }
     if(session?.user?.email !== process.env.SECRET) {
       alert('작성 권한이 없습니다')
+      return
     }
     const request = {
       name: name.value,
