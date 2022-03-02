@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react"
 import Head from "next/head"
 import SERVER_URL from "../../survey.config"
 import dynamic from 'next/dynamic'
+import Modal from "../../components/modal"
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const Result: NextPage = ({ survey, result }: any) => {
@@ -94,27 +95,29 @@ const Result: NextPage = ({ survey, result }: any) => {
         <meta name="description" content={survey.details} />
         <meta name="keywords" content="설문조사, 설문조사작성, 리포트, 설문조사 리포트" />
       </Head>
-      <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
-        <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
-        <blockquote className="text-xl">
-          현재까지 설문에 참여한 참여자 수는 <span className="text-2xl">{result.Count}</span>명 입니다
-        </blockquote>
-        {survey.questions.map((v: any, i: number) => {
-          if(charts.length && isSurvey) {
-            return (
-              <div key={i}>
-                <h1 className="my-6 text-2xl font-bold">{i+1}. {v.question}</h1>
-                <h3 className="my-3">{i+1}번 항목에서 사람들이 가장 많이 고른 선택지는 <span className="text-2xl">{v.options[answer[i]]}</span> 입니다</h3>
-                <Chart 
-                  options={charts[i].options}
-                  series={charts[i].series}
-                  type="bar"
-                />
-              </div>
-            )
-          }
-        })}
-      </div>
+      {survey.questions.length ?       
+        <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
+          <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
+          <blockquote className="text-xl">
+            현재까지 설문에 참여한 참여자 수는 <span className="text-2xl">{result.Count}</span>명 입니다
+          </blockquote>
+          {survey.questions.map((v: any, i: number) => {
+            if(charts.length && isSurvey) {
+              return (
+                <div key={i}>
+                  <h1 className="my-6 text-2xl font-bold">{i+1}. {v.question}</h1>
+                  <h3 className="my-3">{i+1}번 항목에서 사람들이 가장 많이 고른 선택지는 <span className="text-2xl">{v.options[answer[i]]}</span> 입니다</h3>
+                  <Chart 
+                    options={charts[i].options}
+                    series={charts[i].series}
+                    type="bar"
+                  />
+                </div>
+              )
+            }
+          })}
+        </div>
+      : <Modal />}
     </div>
   )
 }
