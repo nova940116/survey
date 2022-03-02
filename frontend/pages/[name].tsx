@@ -48,9 +48,16 @@ const Read: NextPage = ({ survey }: any) => {
       <Head>
         <title>작성 | {survey.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="og:title" property="og:title" content={survey.title}></meta>
+        <meta name="og:title" property="og:title" content={survey.title} />
         <meta name="og:description" property="og:description" content={survey.details} />
-        <meta name="og:url" property="og:url" content={`https://survey.novauniverse.me/${router.query.name}`}></meta>
+        <meta name="og:url" property="og:url" content={`https://survey.novauniverse.me/${router.query.name}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="노바의 설문조사 플랫폼" />
+        <meta name="author" content="nova" />        
+        <meta name="url" content={`https://survey.novauniverse.me/${router.query.name}`} />
+        <meta name="description" content={survey.details} />
+        <meta name="keywords" content="설문조사" />
+        {/* <link rel="shortcut icon" type="image/x-icon" href=""></link> */}
       </Head>
       <form className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <section className="mb-2 pb-6 border-b-2">
@@ -74,7 +81,7 @@ const Read: NextPage = ({ survey }: any) => {
                 </div>
               )
             })}
-            <button className="bg-slate-900 text-white my-6 h-14 w-full border-2 font-bold" type="button" onClick={checkItems}>설문 제출하기</button>
+            <button className="bg-slate-900 text-white my-6 h-14 w-full font-bold" type="button" onClick={checkItems}>설문 제출하기</button>
           </section> 
           : 
           <div>            

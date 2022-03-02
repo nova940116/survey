@@ -2,6 +2,7 @@
 import { NextPage } from "next"
 import { useState } from "react"
 import { useInput } from "../hooks/useInput"
+import { getSession } from "next-auth/react"
 import SERVER_URL from "../survey.config"
 
 const Create: NextPage = () => {
@@ -31,6 +32,10 @@ const Create: NextPage = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
+    const session = await getSession()
+    if(session?.user?.email !== process.env.SECRET) {
+      alert('작성 권한이 없습니다')
+    }
     const request = {
       name: name.value,
       title: title.value,

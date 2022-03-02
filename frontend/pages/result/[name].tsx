@@ -82,6 +82,15 @@ const Result: NextPage = ({ survey, result }: any) => {
       <Head>
         <title>결과 | {survey.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="og:title" property="og:title" content={survey.title} />
+        <meta name="og:description" property="og:description" content={survey.details} />
+        <meta name="og:url" property="og:url" content={`https://survey.novauniverse.me/${router.query.name}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="노바의 설문조사 플랫폼" />
+        <meta name="author" content="nova" />
+        <meta name="url" content={`https://survey.novauniverse.me/${router.query.name}`} />
+        <meta name="description" content={survey.details} />
+        <meta name="keywords" content="설문조사, 설문조사작성, 리포트, 설문조사 리포트" />
       </Head>
       <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
