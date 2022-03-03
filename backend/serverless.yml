@@ -1,6 +1,3 @@
-# app, org = serverless dashboards 에서 app 생성과 관련
-# app: Wiki
-# org: nova
 frameworkVersion: "3"
 # useDotenv: true
 service: Survey
@@ -61,7 +58,6 @@ functions:
           method: DELETE
           path: /{name}
 
-# CloudFormation template syntax from here on.
 resources:
   Resources:
     surveyTable:
