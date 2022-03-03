@@ -57,7 +57,7 @@ const Read: NextPage = ({ survey }: any) => {
         <meta name="url" content={`https://survey.novauniverse.me/${router.query.name}`} />
         <meta name="description" content={survey.details} />
         <meta name="keywords" content="설문조사" />
-        {/* <link rel="shortcut icon" type="image/x-icon" href=""></link> */}
+        <link rel="shortcut icon" type="image/x-icon" href="https://survey.novauniverse.me/logo.png" />
       </Head>
       <form className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <section className="mb-2 pb-6 border-b-2">

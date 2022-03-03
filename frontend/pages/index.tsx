@@ -20,7 +20,7 @@ const Read: NextPage = ({ surveys }: any) => {
         <meta name="url" content="https://survey.novauniverse.me" />
         <meta name="description" content="각종 설문조사를 진행하고 그 결과는 어떤지 확인해보세요" />
         <meta name="keywords" content="설문조사" />
-        {/* <link rel="shortcut icon" type="image/x-icon" href=""></link> */}
+        <link rel="shortcut icon" type="image/x-icon" href="https://survey.novauniverse.me/logo.png" />
       </Head>
       <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
         <section className="mb-2 pb-6 border-b-2">
