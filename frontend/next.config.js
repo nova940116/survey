@@ -14,7 +14,7 @@ const nextConfig = {
     }
   },
   env: {
-    SECRET: 'nova940116@gmail.com'
+    SECRET: process.env.SECRET
   }
 }
 
