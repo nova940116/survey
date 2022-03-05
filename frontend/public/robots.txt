@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://survey.novauniverse.me
+
+# Sitemaps
+Sitemap: https://survey.novauniverse.me/sitemap.xml
