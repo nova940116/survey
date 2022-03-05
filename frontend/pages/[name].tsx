@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import Image from 'next/image'
 import Head from "next/head"
 import SERVER_URL from "../survey.config"
+import Footer from "../components/footer"
 
 const Read: NextPage = ({ survey }: any) => {
   const { data: session } = useSession()
@@ -44,7 +45,7 @@ const Read: NextPage = ({ survey }: any) => {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-wrap items-center h-screen">
       <Head>
         <title>작성 | {survey.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -59,10 +60,10 @@ const Read: NextPage = ({ survey }: any) => {
         <meta name="keywords" content="설문조사" />
         <link rel="shortcut icon" type="image/x-icon" href="https://survey.novauniverse.me/logo.png" />
       </Head>
-      <form className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
+      <form className="w-full lg:w-2/4 p-5">
         <section className="mb-2 pb-6 border-b-2">
           <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
-          <blockquote className="text-xl">{survey.details}</blockquote>
+          <blockquote className="text-xl white">{survey.details}</blockquote>
         </section>
         {session ? 
           <section>
@@ -91,6 +92,8 @@ const Read: NextPage = ({ survey }: any) => {
           </section> 
           : 
           <div>            
+            <p>✅ 중복 설문을 방지하기 위해 구글 로그인이 필요해요</p>
+            <p>✅ 로그인 정보(이메일)는 중복 설문을 방지하기 위한 용도로만 사용되고 있어요</p>
             <button className="flex justify-center items-center my-6 h-12 w-full border-2 bg-white" type="button" onClick={()=>signIn('google')}>
               <Image 
                 src="/btn_google_light_normal_ios.svg" 
@@ -102,6 +105,7 @@ const Read: NextPage = ({ survey }: any) => {
           </div>
         }
         </form>
+        <Footer />
     </div>
   )
 }

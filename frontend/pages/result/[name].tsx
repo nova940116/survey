@@ -6,6 +6,7 @@ import Head from "next/head"
 import SERVER_URL from "../../survey.config"
 import dynamic from 'next/dynamic'
 import Modal from "../../components/modal"
+import Footer from "../../components/footer"
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const Result: NextPage = ({ survey, result }: any) => {
@@ -81,7 +82,7 @@ const Result: NextPage = ({ survey, result }: any) => {
   }, [router.query.name])
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-wrap items-center">
       <Head>
         <title>결과 | {survey.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -119,6 +120,7 @@ const Result: NextPage = ({ survey, result }: any) => {
           })}
         </div>
       : <Modal />}
+      <Footer />
     </div>
   )
 }
