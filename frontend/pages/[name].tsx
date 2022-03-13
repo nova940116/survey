@@ -26,6 +26,7 @@ const Read: NextPage = ({ survey }: any) => {
       const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${survey.name}&email=${session.user.email}`).then(r => r.json())
       if(res.Item) {
         alert('이미 설문을 제출하셨습니다')
+        router.push(`result/${router.query.name}`)
         return
       }
     } 
