@@ -1,5 +1,5 @@
 import type { NextPage } from "next"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSession, signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import Image from 'next/image'
@@ -12,6 +12,19 @@ const Read: NextPage = ({ survey }: any) => {
   const [answer, setAnswer] = useState<string []>([]) 
   const router = useRouter()
 
+  useEffect(() => {
+    (async() => {
+      if(session?.user?.email) {
+        const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${survey.name}&email=${session.user.email}`).then(r => r.json())
+        if(res.Item) {
+          alert('이미 설문을 제출하셨습니다')
+          router.push(`result/${router.query.name}`)
+          return
+        }
+      } 
+    })()
+  }, [])
+
   const handleChange = (event: any, qi: number) => {
     const newArr = [...answer]
     newArr[qi] = event.target.value
@@ -22,14 +35,6 @@ const Read: NextPage = ({ survey }: any) => {
       alert('설문 항목을 모두 체크해주세요')
       return
     }
-    if(session?.user?.email) {
-      const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${survey.name}&email=${session.user.email}`).then(r => r.json())
-      if(res.Item) {
-        alert('이미 설문을 제출하셨습니다')
-        router.push(`result/${router.query.name}`)
-        return
-      }
-    } 
     handleSubmit()
   }
   const handleSubmit = async () => {
