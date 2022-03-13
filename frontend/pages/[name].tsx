@@ -23,7 +23,7 @@ const Read: NextPage = ({ survey }: any) => {
         }
       } 
     })()
-  }, [])
+  }, [session])
 
   const handleChange = (event: any, qi: number) => {
     const newArr = [...answer]
