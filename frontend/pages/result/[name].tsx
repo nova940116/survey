@@ -13,13 +13,15 @@ const Result: NextPage = ({ survey, result }: any) => {
   const router = useRouter()
   const [charts, setCharts] = useState<any>([])
   const [answer, setAnswer] = useState<any>([])
-  const [isSurvey, setIsSurvey] = useState<boolean>(true)  
+  const [isSurvey, setIsSurvey] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     (async () => {
       const session = await getSession()
       if(router.query.name) {
         const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
+        setLoading(true)
         if(!res.Item) {
           alert('설문을 먼저 작성한 후에 결과를 확인해주세요')
           setIsSurvey(false)
@@ -97,8 +99,7 @@ const Result: NextPage = ({ survey, result }: any) => {
         <meta name="keywords" content="설문조사, 설문조사작성, 리포트, 설문조사 리포트" />
         <link rel="shortcut icon" type="image/x-icon" href="https://survey.novauniverse.me/logo.png" />
       </Head>
-      {survey.questions.length ?       
-        <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
+        <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col min-h-screen">
           <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
           <blockquote className="text-xl">
             현재까지 설문에 참여한 참여자 수는 <span className="text-2xl">{result.Count}</span>명 입니다
@@ -119,8 +120,8 @@ const Result: NextPage = ({ survey, result }: any) => {
             }
           })}
         </div>
-      : <Modal />}
       <Footer />
+      { !loading ? <Modal /> : null }
     </div>
   )
 }
