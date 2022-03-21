@@ -35,6 +35,12 @@ const Read: NextPage = ({ survey }: any) => {
       alert('설문 항목을 모두 체크해주세요')
       return
     }
+    for(let v of answer) {
+      if(!v) {
+        alert('설문 항목을 모두 체크해주세요') 
+        return
+      }
+    }
     handleSubmit()
   }
   const handleSubmit = async () => {
