@@ -44,8 +44,8 @@ module.exports.survey = async (event) => {
       case "GET /result/{name}":
         request = {       
           TableName: "result",
-          ProjectionExpression: "#email, #name, #answer",
-          ExpressionAttributeNames: { "#email": "email", "#name": "name", "#answer": "answer" },
+          ProjectionExpression: "#name, #answer",
+          ExpressionAttributeNames: { "#name": "name", "#answer": "answer" },
           FilterExpresstion: `#name = ${event.pathParameters.name}`
         }        
         body = await dynamo.scan(request).promise()        
