@@ -2,12 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
-    if(process.env.NODE_ENV !== 'production') {
+    if(process.env.NODE_ENV === 'production') {
       return [
         {
-          destination: 'http://localhost:3000/:path*',
-          source: '/server/:path*',
-        },
+          source: 'https://survey.novauniverse.me/survey/:path*',
+          destination: 'https://h0p76izfrj.execute-api.ap-northeast-2.amazonaws.com/:path*'
+        }
       ]
     } else {
       return []
