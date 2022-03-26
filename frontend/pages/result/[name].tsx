@@ -20,7 +20,7 @@ const Result: NextPage = ({ survey, result }: any) => {
     (async () => {
       const session = await getSession()
       if(router.query.name) {
-        const res = await fetch(`${SERVER_URL}/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
+        const res = await fetch(`/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then(r => r.json())
         setLoading(true)
         if(!res.Item) {
           alert('설문을 먼저 작성한 후에 결과를 확인해주세요')
