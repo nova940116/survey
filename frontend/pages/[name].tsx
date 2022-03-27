@@ -75,7 +75,7 @@ const Read: NextPage = ({ survey }: any) => {
       <form className="w-full lg:w-2/4 p-5">
         <section className="mb-2 pb-6 border-b-2">
           <h1 className="my-6 text-4xl font-bold">{survey.title}</h1>
-          <blockquote className="text-xl white">{survey.details}</blockquote>
+          <blockquote className="text-lg white whitespace-pre-wrap">{survey.details}</blockquote>
         </section>
         {session ? 
           <section>
