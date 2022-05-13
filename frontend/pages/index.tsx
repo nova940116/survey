@@ -1,13 +1,13 @@
 import type { NextPage } from "next"
-import Image from 'next/image'
 import Link from "next/link"
 import Head from "next/head"
 import SERVER_URL from "../survey.config"
+import Footer from "../components/footer"
 
 const Read: NextPage = ({ surveys }: any) => {
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-col">
       <Head>
         <title>노바의 설문조사</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -22,10 +22,10 @@ const Read: NextPage = ({ surveys }: any) => {
         <meta name="keywords" content="설문조사" />
         <link rel="shortcut icon" type="image/x-icon" href="https://survey.novauniverse.me/logo.png" />
       </Head>
-      <div className="w-full lg:w-2/4 p-5 flex justify-center flex-col">
+      <div className="w-full h-680 p-5 flex flex-col">
         <section className="mb-2 pb-6 border-b-2">
             <h1 className="my-6 text-4xl font-bold">노바의 설문조사 플랫폼</h1>
-          <blockquote className="text-xl">각종 설문조사를 진행하고 그 결과는 어떤지 확인해보세요</blockquote>
+          <blockquote className="text-xl">각종 설문조사를 진행하고 그 결과는 어떤지 확인해보세요 :)</blockquote>
         </section>
         <section>
           <h3 className="text-xl">설문조사 리스트</h3>
@@ -38,6 +38,7 @@ const Read: NextPage = ({ surveys }: any) => {
           })}
         </section>
       </div>
+      <Footer />
     </div>
   )
 }
