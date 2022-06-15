@@ -14,7 +14,7 @@ const Result: NextPage = ({ survey, result }: any) => {
   const [charts, setCharts] = useState<any>([])
   const [answer, setAnswer] = useState<any>([])
   const [isSurvey, setIsSurvey] = useState<boolean>(true)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     ;(async () => {
@@ -23,7 +23,7 @@ const Result: NextPage = ({ survey, result }: any) => {
         const res = await fetch(`/survey/isSubmit?name=${router.query.name}&email=${session?.user?.email}`).then((r) =>
           r.json()
         )
-        setLoading(true)
+        if (res) setLoading(false)
         if (!res.Item) {
           alert("설문을 먼저 작성한 후에 결과를 확인해주세요")
           setIsSurvey(false)
@@ -123,7 +123,7 @@ const Result: NextPage = ({ survey, result }: any) => {
         })}
       </div>
       <Footer />
-      {!loading ? <Modal /> : null}
+      {loading ? <Modal /> : null}
     </div>
   )
 }
