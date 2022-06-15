@@ -82,7 +82,7 @@ const Result: NextPage = ({ survey, result }: any) => {
       })
       setCharts(newArr)
     })()
-  })
+  }, [router.query.name])
 
   return (
     <div className="flex justify-center flex-wrap items-center">
